@@ -1,8 +1,8 @@
 import java.util.Comparator;
 
-public class SortByDistance implements Comparator<PickUp> {
-    private int X;
-    private int Y;
+public class SortByDistance implements Comparator<Location> {
+    private final int X;
+    private final int Y;
 
     public SortByDistance(int x, int y) {
         this.X = x;
@@ -10,7 +10,9 @@ public class SortByDistance implements Comparator<PickUp> {
     }
 
     @Override
-    public int compare(PickUp pu1, PickUp pu2) {
+    public int compare(Location pu1, Location pu2) {
+        if(pu1==null) return -1;
+        if(pu2==null) return 1;
         int distance1 = Math.abs(pu1.X - this.X);
         int disance2 = Math.abs(pu2.X - this.X);
 

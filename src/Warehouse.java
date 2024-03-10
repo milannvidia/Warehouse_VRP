@@ -8,8 +8,49 @@ public class Warehouse {
     private ArrayList<BufferPoint> bps;
     private ArrayList<Vehicle> vehicles;
     private ArrayList<Box> boxes;
-    ArrayList<Box> out = new ArrayList<>();
-    ArrayList<Box> in = new ArrayList<>();
+    private ArrayList<Box> out = new ArrayList<>();
+
+    public ArrayList<BoxStack> getStacks() {
+        return stacks;
+    }
+
+    public void setStacks(ArrayList<BoxStack> stacks) {
+        this.stacks = stacks;
+    }
+
+    public ArrayList<BufferPoint> getBps() {
+        return bps;
+    }
+
+    public void setBps(ArrayList<BufferPoint> bps) {
+        this.bps = bps;
+    }
+
+    public ArrayList<Box> getBoxes() {
+        return boxes;
+    }
+
+    public void setBoxes(ArrayList<Box> boxes) {
+        this.boxes = boxes;
+    }
+
+    public ArrayList<Box> getOut() {
+        return out;
+    }
+
+    public void setOut(ArrayList<Box> out) {
+        this.out = out;
+    }
+
+    public ArrayList<Box> getIn() {
+        return in;
+    }
+
+    public void setIn(ArrayList<Box> in) {
+        this.in = in;
+    }
+
+    private ArrayList<Box> in = new ArrayList<>();
 
 
     static int time = 0;
@@ -35,6 +76,7 @@ public class Warehouse {
         //init
         for (Box box : this.boxes) {
             if (box.placeLocation == null) {
+                box.digOutBox=true;
                 continue;
             }
             if (box.placeLocation instanceof BoxStack) {
@@ -238,6 +280,7 @@ public class Warehouse {
         whileLoop:
         while (true) {
             tick();
+            if(!this.out.isEmpty()||!this.in.isEmpty()) continue whileLoop;
             for (Vehicle v : vehicles) {
                 if (v.hasJob()) continue whileLoop;
             }
@@ -253,48 +296,17 @@ public class Warehouse {
         time++;
     }
 
-    public Queue<MoveRequest> getTasks(Vehicle v) {
-        Queue<MoveRequest> temp=new LinkedList<>();
-        if(!out.isEmpty()){
-            return getOutTasks(v);
+    //only called when filler box
+    public Location getClosestDropOff(int x, int y) {
+        Comparator<Location> sorter=new SortByDistance(x,y);
+        this.stacks.sort(sorter);
+        for(BoxStack stack:stacks){
+            if(stack.canPlace()) {
+                stack.toBePlaced++;
+                return stack;
+            }
         }
-        for(BoxStack boxStack:stacks){
-            int places= boxStack.placesReserved+ boxStack.boxes.size()-this.stackcapacity;
-            if(places<0) continue;
-            return getEvenTasks(v);
-        }
-        if(!in.isEmpty()){
-            return getInTasks(v);
-        }
-
+        System.out.println("error");
         return null;
-    }
-
-    private Queue<MoveRequest> getInTasks(Vehicle v) {
-        Comparator<PickUp> sorter=new SortByDistance(v.X,v.Y);
-        in.sort((o1, o2) -> sorter.compare(o1.placeLocation,o2.placeLocation));
-        //TODO:place all boxes in there correct space
-        Queue<MoveRequest> temp=new LinkedList<>();
-        for (int i = 0; i < v.capacity; i++) {
-            temp.add(new MoveRequest(in.removeFirst(),MoveType.Pick_Up));
-        }
-        for (MoveRequest move:temp){
-            temp.add(new MoveRequest(move.box,MoveType.Put_Down));
-        }
-        return temp;
-    }
-
-    private Queue<MoveRequest> getEvenTasks(Vehicle v) {
-        //TODO: Move all boxes which are to much in there stack
-    }
-
-    private Queue<MoveRequest> getOutTasks(Vehicle v) {
-        Comparator sorter=new SortByDistance(v.X,v.Y);
-        out.sort((o1, o2) -> sorter.compare(o1.currentLocation,o2.currentLocation));
-        //TODO: first all boxes reachable like that
-        for(Box box:out){
-
-        }
-        //TODO: Digout
     }
 }

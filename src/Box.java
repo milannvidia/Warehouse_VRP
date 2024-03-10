@@ -1,20 +1,20 @@
 public class Box {
     public String name;
-    public PickUp currentLocation;
-    public PickUp placeLocation;
+    public Location currentLocation;
+    public Location placeLocation;
     public boolean digOutBox=false;
 
     public int IDRequest;
 
 
-    public Box(String o, PickUp currentLocation) {
+    public Box(String o, Location currentLocation) {
         name = o;
         this.currentLocation = currentLocation;
 
         this.placeLocation = null;
     }
 
-    public void setPlaceLocation(PickUp placeLocation) {
+    public void setPlaceLocation(Location placeLocation) {
         this.placeLocation = placeLocation;
     }
 

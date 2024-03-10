@@ -51,7 +51,7 @@ public class JSONReader {
             vehicles.add(getVehicle(o, vehiclespeed, loadingduration));
         }
 
-        HashMap<String,PickUp> locations=new HashMap<>();
+        HashMap<String, Location> locations=new HashMap<>();
         locations.putAll(bps);
         locations.putAll(stacks);
 
@@ -74,13 +74,13 @@ public class JSONReader {
 
     }
 
-    private static void getRequest(JSONObject o, HashMap<String,Box> boxMap, HashMap<String, PickUp> locations) {
+    private static void getRequest(JSONObject o, HashMap<String,Box> boxMap, HashMap<String, Location> locations) {
         int id=o.getInt("ID");
         String puString=o.get("pickupLocation").toString().replaceAll("[\\[\\]\"]","");
         String plString=o.get("placeLocation").toString().replaceAll("[\\[\\]\"]","");
 
-        PickUp pu= locations.get(puString);
-        PickUp pl= locations.get(plString);
+        Location pu= locations.get(puString);
+        Location pl= locations.get(plString);
         Box box=boxMap.get(o.getString("boxID"));
 
         if(pu==null||pl==null){
@@ -107,7 +107,7 @@ public class JSONReader {
             x=o.getInt("x");
             y=o.getInt("y");
         }
-        Vehicle temp= new Vehicle(
+        return new Vehicle(
                 o.getInt("ID"),
                 o.getString("name"),
                 o.getInt("capacity"),
@@ -116,17 +116,15 @@ public class JSONReader {
                 speed,
                 loadingDuration
         );
-        return temp;
     }
 
     private static BufferPoint getBP(JSONObject o) {
-        BufferPoint temp= new BufferPoint(
+        return new BufferPoint(
                 o.getInt("ID"),
                 o.getString("name"),
                 o.getInt("x"),
                 o.getInt("y")
         );
-        return temp;
     }
 
     private static BoxStack getBoxStack(JSONObject o, HashMap<String,Box> boxStack, int stackcapacity) {
