@@ -206,13 +206,13 @@ public class Vehicle {
                 + ";" + previousTime
                 + ";" + this.X
                 + ";" + this.Y
-                + ";" + time
+                + ";" + (time+1)
                 + ";" + box.name
                 + ";" + operation
         );
         previousX = this.X;
         previousY = this.Y;
-        previousTime = time;
+        previousTime = time+1;
     }
 
     //

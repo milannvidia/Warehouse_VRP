@@ -12,6 +12,6 @@ public class Main {
 //        Warehouse wh=JSONReader.getWarehouse(new File("resource/I100_50_2_2_8b2.json"));
 //        Warehouse wh=JSONReader.getWarehouse(new File("resource/I100_120_2_2_8b2.json"));
 
-        wh.solve(true);
+        wh.solve(false);
     }
 }
