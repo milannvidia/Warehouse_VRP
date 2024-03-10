@@ -56,10 +56,10 @@ public class Vehicle {
                 if (!isInplaceOrMoveVehicle()) return;
                 if (loadingprogress == 0) {
                     if (target instanceof BoxStack) {
-                        if (((BoxStack) target).ocupied) return;
+                        if (((BoxStack) target).occupied) return;
                         if (((BoxStack) target).getLocked() && this.lockedPickup != target)
                             System.out.print("shouldnt be possible");
-                        ((BoxStack) target).ocupied = true;
+                        ((BoxStack) target).occupied = true;
                     }
                 }
 
@@ -78,7 +78,7 @@ public class Vehicle {
                     } else {
                         wareHouse.getOut().remove(loaded);
                     }
-                    ((BoxStack) this.target).ocupied = false;
+                    ((BoxStack) this.target).occupied = false;
                 } else {
                     this.load(claimedBox);
                     claimedBox = null;
@@ -92,12 +92,12 @@ public class Vehicle {
                 if (!isInplaceOrMoveVehicle()) return;
                 if (loadingprogress == 0) {
                     if (target instanceof BoxStack) {
-                        if (((BoxStack) target).ocupied) return;
+                        if (((BoxStack) target).occupied) return;
                         if (((BoxStack) target).getLocked()) {
                             System.out.println("should not be possible");
                             return;
                         }
-                        ((BoxStack) target).ocupied = true;
+                        ((BoxStack) target).occupied = true;
                     }
                 }
                 loadingprogress++;
@@ -106,22 +106,20 @@ public class Vehicle {
                 }
                 //place box
                 if(inTransitContainsFiller()){
-                    for (Iterator<Box> iterator = inTransit.iterator(); iterator.hasNext(); ) {
-                        Box box = iterator.next();
+                    for (Box box : inTransit) {
                         if (!box.digOutBox) continue;
                         dropOff(box);
                         break;
                     }
                 }else{
-                    for (Iterator<Box> iterator = inTransit.iterator(); iterator.hasNext(); ) {
-                        Box box = iterator.next();
+                    for (Box box : inTransit) {
                         if (box.digOutBox) System.out.println("whuut");
                         if (box.placeLocation != target) continue;
                         dropOff(box);
                         break;
                     }
                 }
-                if(target instanceof BoxStack) ((BoxStack)target).ocupied=false;
+                if(target instanceof BoxStack) ((BoxStack)target).occupied =false;
                 this.target=null;
                 this.state = StateVehicle.noTarget;
             }
@@ -150,7 +148,6 @@ public class Vehicle {
         boolean hasPlace = this.inTransit.size() < this.capacity;
         boolean isEmpty = this.inTransit.isEmpty();
         boolean hasLockedStack = this.lockedPickup != null;
-        boolean hasClaimedBox = this.claimedBox != null;
         boolean hasFiller = this.inTransitContainsFiller();
 
 
@@ -254,7 +251,7 @@ public class Vehicle {
     }
 
     private Box dropOff(Box box) {
-        Box temp=null;
+        Box temp;
         if(box.digOutBox){
             temp=target.loadBox(box);
         }else{

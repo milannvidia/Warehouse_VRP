@@ -8,7 +8,7 @@ public class BoxStack extends Location {
     public int placesReserved = 0;
 
     public int toBePlaced = 0;
-    protected boolean ocupied = false;
+    protected boolean occupied = false;
     private boolean locked = false;
 
     public BoxStack(int id, String name, int x, int y, int heightLimit) {
@@ -62,12 +62,7 @@ public class BoxStack extends Location {
 
     @Override
     public boolean canPlace() {
-        if (toBePlaced + boxes.size() + placesReserved + 1 <= heightLimit && !containsBoxWithTarget()) return true;
-//        if(toBePlaced+boxes.size()+1<heightLimit) {
-//            System.out.println("accepted placement but no place for reserve anymore");
-//            return true;
-//        }
-        return false;
+        return toBePlaced + boxes.size() + placesReserved + 1 <= heightLimit && !containsBoxWithTarget();
     }
 
     @Override
@@ -84,10 +79,6 @@ public class BoxStack extends Location {
 
     public void addPlacesReserved() {
         this.placesReserved += 1;
-    }
-
-    public boolean enoughPlaceForIn() {
-        return this.boxes.size() + this.placesReserved <= this.heightLimit;
     }
 
     public void setLocked() {

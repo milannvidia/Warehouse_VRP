@@ -22,13 +22,5 @@ public class Box {
         this.IDRequest = IDRequest;
     }
 
-    public int getDepth(){
-        if(currentLocation instanceof BoxStack){
-            return ((BoxStack)this.currentLocation).boxes.indexOf(this);
-        }else{
-            return 0;
-        }
-    }
-
 
 }

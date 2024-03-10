@@ -14,11 +14,11 @@ public class SortByDistance implements Comparator<Location> {
         if(pu1==null) return -1;
         if(pu2==null) return 1;
         int distance1 = Math.abs(pu1.X - this.X);
-        int disance2 = Math.abs(pu2.X - this.X);
+        int distance2 = Math.abs(pu2.X - this.X);
 
         if (pu1.Y == Y) {
             if (pu2.Y == Y) {
-                return Integer.signum(distance1 - disance2);
+                return Integer.signum(distance1 - distance2);
             } else {
                 return 1;
             }
