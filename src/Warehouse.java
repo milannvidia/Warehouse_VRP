@@ -1,9 +1,7 @@
 import java.util.*;
 
 public class Warehouse {
-    private int loadingduration;
-    private int vehiclespeed;
-    private int stackcapacity;
+
     private ArrayList<BoxStack> stacks;
     private ArrayList<BufferPoint> bps;
     private ArrayList<Vehicle> vehicles;
@@ -55,15 +53,10 @@ public class Warehouse {
 
     static int time = 0;
 
-    public Warehouse(int loadingduration, int vehiclespeed, int stackcapacity,
-                     ArrayList<BoxStack> boxStacks,
+    public Warehouse(ArrayList<BoxStack> boxStacks,
                      ArrayList<BufferPoint> bufferPoints,
                      ArrayList<Box> boxes,
                      ArrayList<Vehicle> vehicles) {
-
-        this.loadingduration = loadingduration;
-        this.vehiclespeed = vehiclespeed;
-        this.stackcapacity = stackcapacity;
         this.stacks = boxStacks;
         this.boxes = boxes;
         this.vehicles = vehicles;

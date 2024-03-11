@@ -62,10 +62,6 @@ public class JSONReader {
         }
 
         return  new Warehouse(
-                loadingduration,
-                vehiclespeed,
-                stackcapacity,
-
                 new ArrayList<>(stacks.values()),
                 new ArrayList<>(bps.values()),
                 new ArrayList<>(boxMap.values()),
