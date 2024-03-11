@@ -157,7 +157,7 @@ public class Vehicle {
                 this.target = lockedPickup;
             } else {
                 if (!out.isEmpty()) {
-                    for(Iterator<Box> itr = out.iterator(); itr.hasNext(); itr.next()){
+                    for(Iterator<Box> itr = out.iterator(); itr.hasNext();){
                         Box box=itr.next();
                         if(((BoxStack)box.currentLocation).getLocked()){
                             continue;
