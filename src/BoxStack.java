@@ -19,7 +19,7 @@ public class BoxStack extends Location {
     @Override
     public Box unloadBox(Box box) {
         if (boxes.peek() == box) {
-            box.currentLocation=null;
+            box.setCurrentLocation(null);
             return boxes.pop();
         } else {
             if (boxes.contains(box)) {
@@ -35,9 +35,11 @@ public class BoxStack extends Location {
     public Box loadBox(Box box) {
         if (boxes.size() < heightLimit) {
             boxes.add(box);
-            if (box.placeLocation == this) placesReserved--;
-            else toBePlaced--;
-            box.currentLocation=this;
+            if (box.getPlaceLocation() == this)
+                placesReserved--;
+            else
+                toBePlaced--;
+            box.setCurrentLocation(this);
             return box;
         } else {
             System.out.println("no place anymore on stack " + this.ID);
@@ -68,7 +70,8 @@ public class BoxStack extends Location {
     @Override
     public boolean containsBoxWithTarget() {
         for (Box box : this.boxes) {
-            if (!box.digOutBox && box.placeLocation != this) return true;
+            if (!box.isDigOutBox() && box.getPlaceLocation() != this)
+                return true;
         }
         return false;
     }
@@ -82,18 +85,21 @@ public class BoxStack extends Location {
     }
 
     public void setLocked() {
-        if (this.locked) System.out.println("already locked");
-        else locked = true;
+        if (this.locked)
+            System.out.println("already locked");
+        else
+            locked = true;
     }
 
     public void setUnLocked() {
-        if (this.locked) locked = false;
-        else System.out.println("wasn't locked");
+        if (this.locked)
+            locked = false;
+        else
+            System.out.println("wasn't locked");
     }
 
     public boolean getLocked() {
         return locked;
     }
-
 
 }

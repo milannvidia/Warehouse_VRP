@@ -12,7 +12,7 @@ public class BufferPoint extends Location {
     public Box unloadBox(Box box) {
         if (storage.contains(box)) {
             storage.remove(box);
-            box.currentLocation=null;
+            box.setCurrentLocation(null);
             return box;
         } else {
             System.out.println("cant remove something that's not there");
@@ -23,7 +23,7 @@ public class BufferPoint extends Location {
     @Override
     public Box loadBox(Box box) {
         storage.add(box);
-        box.currentLocation=this;
+        box.setCurrentLocation(this);
         return box;
     }
 
@@ -40,11 +40,11 @@ public class BufferPoint extends Location {
     @Override
     public boolean containsBoxWithTarget() {
         for (Box box : this.storage) {
-            if (!box.digOutBox && box.placeLocation != this) return true;
+            if (!box.isDigOutBox() && box.getPlaceLocation() != this)
+                return true;
         }
         return false;
     }
-
 
     @Override
     public Box getTop() {
