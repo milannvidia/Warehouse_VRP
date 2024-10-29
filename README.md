@@ -1,3 +1,7 @@
+# Warehouse VRP
+
+This repository contains a solution for the Vehicle Routing Problem (VRP) focused on optimizing the routes of robots in a warehouse environment. The robots are tasked with moving boxes between various locations, with the objective of planning routes as efficiently as possible. This solution was developed as part of the course **Algorithms for Decision Support** at KU Leuven 
+
 # Run the jar
 
 The first argument is the file location with the needed data. The second argument is a boolean if you want more nuanced details about what the vehicles do.
